@@ -1,7 +1,7 @@
 ﻿import fs from "fs"; // https://nodejs.org/docs/latest-v14.x/api/fs.html
 import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
-import { diceRolls, getMaxTrailIndex, trails } from "./App";
+import { diceRolls, getInputDiceRoll, getInputTrail, getMaxTrailIndex, printProperties, trails } from "./App";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -29,13 +29,23 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`A dobások száma: ${diceRolls.length}\n`);
     res.write(`Az ösvények száma: ${trails.length}\n`);
     
-    res.write("3. feladat\n");
+    res.write("\n3. feladat\n");
     const maxTrailIndex = getMaxTrailIndex()
     res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${trails[maxTrailIndex].path.length} \n`);
-
-    res.write("4. feladat\n");
+    
+    res.write("\n4. feladat");
     let inputTrail: number = parseInt(params.get("trail") as string);
-    res.write("Adja meg egy ösvény sorszámát: <input type='text' name='trail' value='' style='max-width:100px;' onChange='this.form.submit();'>")
+    let inputDiceRoll: number = parseInt(params.get("trail") as string);
+    if (!inputTrail) inputTrail = 1;
+    if (!inputTrail) inputDiceRoll = 1;
+    // res.write(`Adja meg egy ösvény sorszámát: <input type='text' name='trail' value='${inputTrail}' style='max-width:100px;' onChange='this.form.submit();'>`)
+    res.write(`${getInputTrail(inputTrail)}`);
+    res.write(`${getInputDiceRoll(inputDiceRoll)}`);
+    res.write("\n\n5. feladat");
+    res.write(`\n${printProperties(inputTrail, "M")}`)
+    res.write(`\n${printProperties(inputTrail, "V")}`)
+    res.write(`\n${printProperties(inputTrail, "E")}`)
+    
 
     // <---- Fejezd be a kódolást
 

@@ -27,4 +27,33 @@ export function getMaxTrailIndex(){
     const maxTrail = trails.find(x => x.path.length === Math.max(...trails.map(y => y.path.length)));
     return maxTrail ? trails.indexOf(maxTrail) : -1;
 }
+
+export function getInputTrail(trail: number): string{
+    return `\nAdja meg egy ösvény sorszámát: <input type='text' name='trail' value='${trail}' style='max-width:100px;' onChange='this.form.submit();'>`
+}
+
+export function getInputDiceRoll(diceRoll: number): string{
+    return `\nAdja meg a játékosok számát: <input type='text' name='trail' value='${diceRoll}' style='max-width:100px;' onChange='this.form.submit();'>`
+}
+
+export function printProperties(trail: number, type: string): string {
+    // trails[trail].path.charCodeAt('M')
+    let db = 0;
+    let iter;
+    if (type == "M") {
+        iter = 77;
+    } else if (type == "V"){
+        iter = 86;
+    } else {
+        iter = 69;
+    }
+    for (let i = 0; i < trails[trail].path.length; i++) {
+        if (trails[trail].path.charCodeAt(i) == iter) {
+           db++; 
+        }
+        console.log(trails[trail].path.charCodeAt(i));
+        
+    }
+    return `${type}: ${db} darab`;
+}
 new Program();

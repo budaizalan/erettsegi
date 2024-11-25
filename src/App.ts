@@ -1,11 +1,10 @@
-﻿import http from "http";
+﻿import http, { get } from "http";
 import content from "./Content";
-import * as fs from 'fs';
 import * as fsPromise from 'fs/promises'; 
 class Program {
     constructor() {
         http.createServer(content).listen(process.env.PORT || 8080);
-        fileRead()
+        fileRead();
     }
 }
 
@@ -21,7 +20,9 @@ export async function fileRead() {
     for await (const line of diceRoll.readLines()) {
         line.replaceAll(' ', '').split('').forEach(roll => diceRolls.push(Number(roll)))
     }
-    // console.log(trails);
-    console.log(diceRolls);
+}
+
+export function getMaxTrailIndex(){
+    return trails.indexOf(trails.find(x => x.length === Math.max(...trails.map(y => y.length)))!.toString());
 }
 new Program();

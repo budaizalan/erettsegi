@@ -1,7 +1,7 @@
 ﻿import fs from "fs"; // https://nodejs.org/docs/latest-v14.x/api/fs.html
 import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
-import { diceRolls, fileRead, trails } from "./App";
+import { diceRolls, getMaxTrailIndex, trails } from "./App";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -29,6 +29,10 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`A dobások száma: ${diceRolls.length}\n`);
     res.write(`Az ösvények száma: ${trails.length}\n`);
     
+    res.write("3. feladat\n");
+    const maxTrailIndex = getMaxTrailIndex()
+    res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${trails[maxTrailIndex].length} \n`);
+
     // <---- Fejezd be a kódolást
 
     res.write("</pre></form></body></html>");

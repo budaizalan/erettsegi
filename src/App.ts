@@ -27,4 +27,8 @@ export function getMaxTrailIndex(){
     const maxTrail = trails.find(x => x.path.length === Math.max(...trails.map(y => y.path.length)));
     return maxTrail ? trails.indexOf(maxTrail) : -1;
 }
+
+function getInputTrail(trail: number){
+
+}
 new Program();

@@ -33,6 +33,10 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     const maxTrailIndex = getMaxTrailIndex()
     res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${trails[maxTrailIndex].path.length} \n`);
 
+    res.write("4. feladat\n");
+    let inputTrail: number = parseInt(params.get("trail") as string);
+    res.write("Adja meg egy ösvény sorszámát: <input type='text' name='trail' value='' style='max-width:100px;' onChange='this.form.submit();'>")
+
     // <---- Fejezd be a kódolást
 
     res.write("</pre></form></body></html>");

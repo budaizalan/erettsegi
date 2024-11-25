@@ -31,7 +31,7 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     
     res.write("3. feladat\n");
     const maxTrailIndex = getMaxTrailIndex()
-    res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${trails[maxTrailIndex].length} \n`);
+    res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${trails[maxTrailIndex].path.length} \n`);
 
     // <---- Fejezd be a kódolást
 

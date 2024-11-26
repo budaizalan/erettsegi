@@ -33,27 +33,19 @@ export function getInputTrail(trail: number): string{
 }
 
 export function getInputDiceRoll(diceRoll: number): string{
-    return `\nAdja meg a játékosok számát: <input type='text' name='trail' value='${diceRoll}' style='max-width:100px;' onChange='this.form.submit();'>`
+    return `\nAdja meg a játékosok számát: <input type='text' name='diceRoll' value='${diceRoll}' style='max-width:100px;' onChange='this.form.submit();'>`
 }
 
-export function printProperties(trail: number, type: string): string {
+export function printProperties(trail: number): string {
     // trails[trail].path.charCodeAt('M')
-    let db = 0;
-    let iter;
-    if (type == "M") {
-        iter = 77;
-    } else if (type == "V"){
-        iter = 86;
-    } else {
-        iter = 69;
-    }
+    let M_db = 0;
+    let V_db = 0;
+    let E_db = 0;
     for (let i = 0; i < trails[trail].path.length; i++) {
-        if (trails[trail].path.charCodeAt(i) == iter) {
-           db++; 
-        }
-        console.log(trails[trail].path.charCodeAt(i));
-        
+        if (trails[trail].path.charCodeAt(i) == 77) M_db++; 
+        else if (trails[trail].path.charCodeAt(i) == 86) V_db++;
+        else E_db++;
     }
-    return `${type}: ${db} darab`;
+    return `M: ${M_db} darab\nV: ${V_db} darab\nE: ${E_db} darab`;
 }
 new Program();

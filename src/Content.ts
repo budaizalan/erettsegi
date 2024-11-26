@@ -34,17 +34,12 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${trails[maxTrailIndex].path.length} \n`);
     
     res.write("\n4. feladat");
-    let inputTrail: number = parseInt(params.get("trail") as string);
-    let inputDiceRoll: number = parseInt(params.get("trail") as string);
-    if (!inputTrail) inputTrail = 1;
-    if (!inputTrail) inputDiceRoll = 1;
-    // res.write(`Adja meg egy ösvény sorszámát: <input type='text' name='trail' value='${inputTrail}' style='max-width:100px;' onChange='this.form.submit();'>`)
+    let inputTrail: number = parseInt(params.get("trail") as string); if (!inputTrail) inputTrail = 1;
+    let inputDiceRoll: number = parseInt(params.get("inputDiceRoll") as string); if (!inputDiceRoll) inputDiceRoll = 1;
     res.write(`${getInputTrail(inputTrail)}`);
     res.write(`${getInputDiceRoll(inputDiceRoll)}`);
     res.write("\n\n5. feladat");
-    res.write(`\n${printProperties(inputTrail, "M")}`)
-    res.write(`\n${printProperties(inputTrail, "V")}`)
-    res.write(`\n${printProperties(inputTrail, "E")}`)
+    res.write(`\n${printProperties(inputTrail)}`)
     
 
     // <---- Fejezd be a kódolást

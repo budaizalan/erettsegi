@@ -32,8 +32,8 @@ export function getInputTrail(trail: number): string{
     return `\nAdja meg egy ösvény sorszámát: <input type='text' name='trail' value='${trail}' style='max-width:100px;' onChange='this.form.submit();'>`
 }
 
-export function getInputDiceRoll(diceRoll: number): string{
-    return `\nAdja meg a játékosok számát: <input type='text' name='trail' value='${diceRoll}' style='max-width:100px;' onChange='this.form.submit();'>`
+export function getInputPlayerNumber(playerNumber: number): string{
+    return `\nAdja meg a játékosok számát: <input type='text' name='playerNumber' value='${playerNumber}' style='max-width:100px;' onChange='this.form.submit();'>`
 }
 
 export function printProperties(trail: number, type: string): string {
@@ -51,8 +51,6 @@ export function printProperties(trail: number, type: string): string {
         if (trails[trail].path.charCodeAt(i) == iter) {
            db++; 
         }
-        console.log(trails[trail].path.charCodeAt(i));
-        
     }
     return `${type}: ${db} darab`;
 }

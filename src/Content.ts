@@ -35,17 +35,12 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     
     res.write("\n4. feladat");
     console.log(params.get("trail") as string);
-    let inputTrail: number = Number(params.get("trail") as string);
-    let inputPlayerNumber: number = parseInt(params.get("playerNumber") as string);
-    if (inputTrail == null || inputTrail < 0 || inputTrail > trails.length - 1) inputTrail = 1
-    if (!inputPlayerNumber || inputPlayerNumber < 2 || inputPlayerNumber > 5) inputPlayerNumber = 2;
+    let inputTrail: number = Number(params.get("trail") as string); if (inputTrail == null || inputTrail < 0 || inputTrail > trails.length - 1) inputTrail = 1
+    let inputPlayerNumber: number = parseInt(params.get("playerNumber") as string); if (!inputPlayerNumber || inputPlayerNumber < 2 || inputPlayerNumber > 5) inputPlayerNumber = 2;
     res.write(`${getInputTrail(inputTrail)}`);
     res.write(`${getInputPlayerNumber(inputPlayerNumber)}`);
     res.write("\n\n5. feladat");
-    res.write(`\n${printProperties(inputTrail, "M")}`)
-    res.write(`\n${printProperties(inputTrail, "V")}`)
-    res.write(`\n${printProperties(inputTrail, "E")}`)
-    res.write("\n\n6. feladat");
+    res.write(`\n${printProperties(inputTrail)}`)
     
 
     // <---- Fejezd be a kódolást

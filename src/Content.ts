@@ -1,7 +1,7 @@
 ﻿import fs from "fs"; // https://nodejs.org/docs/latest-v14.x/api/fs.html
 import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
-import { diceRolls, getInputDiceRoll, getInputTrail, getMaxTrailIndex, printProperties, trails } from "./App";
+import { diceRolls, getInputPlayerNumber, getInputTrail, getMaxTrailIndex, printProperties, trails } from "./App";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -34,10 +34,11 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${trails[maxTrailIndex].path.length} \n`);
     
     res.write("\n4. feladat");
-    let inputTrail: number = parseInt(params.get("trail") as string); if (!inputTrail) inputTrail = 1;
-    let inputDiceRoll: number = parseInt(params.get("inputDiceRoll") as string); if (!inputDiceRoll) inputDiceRoll = 1;
+    console.log(params.get("trail") as string);
+    let inputTrail: number = Number(params.get("trail") as string); if (inputTrail == null || inputTrail < 0 || inputTrail > trails.length - 1) inputTrail = 1
+    let inputPlayerNumber: number = parseInt(params.get("playerNumber") as string); if (!inputPlayerNumber || inputPlayerNumber < 2 || inputPlayerNumber > 5) inputPlayerNumber = 2;
     res.write(`${getInputTrail(inputTrail)}`);
-    res.write(`${getInputDiceRoll(inputDiceRoll)}`);
+    res.write(`${getInputPlayerNumber(inputPlayerNumber)}`);
     res.write("\n\n5. feladat");
     res.write(`\n${printProperties(inputTrail)}`)
     

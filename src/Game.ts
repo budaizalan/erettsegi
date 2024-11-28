@@ -13,7 +13,7 @@ export default class Game{
     }
 
     set players(value: number){
-        if(Number.isNaN(value) || value < 2 || value > this.#trails.length) value = 2;
+        if(Number.isNaN(value) || value < 2 || value > 5 || value > this.#trails.length) value = 2;
         this.#players = new Map(Array.from({length: value}, (_, i) => [i + 1, 0]));
     }
 

@@ -1,7 +1,7 @@
 ﻿import fs from "fs"; // https://nodejs.org/docs/latest-v14.x/api/fs.html
 import http from "http"; // https://nodejs.org/docs/latest-v14.x/api/http.html
 import url from "url"; // https://nodejs.org/docs/latest-v14.x/api/url.html
-import { diceRolls, getInputPlayerNumber, getInputTrail, getMaxTrailIndex, printProperties, trails } from "./App";
+import { game, getInputPlayerNumber, getInputTrail, getMaxTrailIndex, printGame, printProperties, printSimpleTrailGame} from "./App";
 
 export default function content(req: http.IncomingMessage, res: http.ServerResponse): void {
     // favicon.ico kérés kiszolgálása:
@@ -24,24 +24,29 @@ export default function content(req: http.IncomingMessage, res: http.ServerRespo
     const params = new url.URL(req.url as string, `http://${req.headers.host}/`).searchParams;
 
     // Kezd a kódolást innen -->
+    game.selectedTrail = Number(params.get("trail") as string);
+    game.players = parseInt(params.get("playerNumber") as string);
 
     res.write("2. feladat\n");
-    res.write(`A dobások száma: ${diceRolls.length}\n`);
-    res.write(`Az ösvények száma: ${trails.length}\n`);
+    res.write(`A dobások száma: ${game.diceRolls.length}\n`);
+    res.write(`Az ösvények száma: ${game.trails.length}\n`);
     
     res.write("\n3. feladat\n");
     const maxTrailIndex = getMaxTrailIndex()
-    res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${trails[maxTrailIndex].path.length} \n`);
+    res.write(`Az egyik leghosszabb a(z) ${maxTrailIndex + 1}. ösvény, hossza: ${game.trails[maxTrailIndex].path.length} \n`);
     
     res.write("\n4. feladat");
-    console.log(params.get("trail") as string);
-    let inputTrail: number = Number(params.get("trail") as string); if (inputTrail == null || inputTrail < 0 || inputTrail > trails.length - 1) inputTrail = 1
-    let inputPlayerNumber: number = parseInt(params.get("playerNumber") as string); if (!inputPlayerNumber || inputPlayerNumber < 2 || inputPlayerNumber > 5) inputPlayerNumber = 2;
-    res.write(`${getInputTrail(inputTrail)}`);
-    res.write(`${getInputPlayerNumber(inputPlayerNumber)}`);
+    res.write(`${getInputTrail()}`);
+    res.write(`${getInputPlayerNumber()}`);
+
     res.write("\n\n5. feladat");
-    res.write(`\n${printProperties(inputTrail)}`)
+    res.write(`\n${printProperties()}`)
+
+    res.write("\n\n7. feladat");
+    res.write(`\n${printSimpleTrailGame()}`)
     
+    res.write("\n\n8. feladat");
+    res.write(`\n${printGame()}`)
 
     // <---- Fejezd be a kódolást
 
